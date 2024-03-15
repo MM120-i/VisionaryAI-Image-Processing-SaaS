@@ -1,7 +1,7 @@
 "use server";
 
 
-// =====================STOPPED AT 1:26:14========================
+// https://visonaryai.vercel.app/
 import { revalidatePath } from "next/cache";
 
 import User from "../database/models/user.model";
@@ -16,7 +16,7 @@ export async function createUser(user: CreateUserParams) {
     const newUser = await User.create(user);
 
     return JSON.parse(JSON.stringify(newUser));
-  } 
+  }
   catch (error) {
     handleError(error);
   }
@@ -29,12 +29,12 @@ export async function getUserById(userId: string) {
 
     const user = await User.findOne({ clerkId: userId });
 
-    if (!user){ 
-        throw new Error("User not found");
+    if (!user) {
+      throw new Error("User not found");
     }
 
     return JSON.parse(JSON.stringify(user));
-  } 
+  }
   catch (error) {
     handleError(error);
   }
@@ -49,12 +49,12 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
       new: true,
     });
 
-    if (!updatedUser){
-         throw new Error("User update failed");
+    if (!updatedUser) {
+      throw new Error("User update failed");
     }
-    
+
     return JSON.parse(JSON.stringify(updatedUser));
-  } 
+  }
   catch (error) {
     handleError(error);
   }
@@ -77,7 +77,7 @@ export async function deleteUser(clerkId: string) {
     revalidatePath("/");
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
-  } 
+  }
   catch (error) {
     handleError(error);
   }
@@ -90,11 +90,11 @@ export async function updateCredits(userId: string, creditFee: number) {
 
     const updatedUserCredits = await User.findOneAndUpdate(
       { _id: userId },
-      { $inc: { creditBalance: creditFee }},
+      { $inc: { creditBalance: creditFee } },
       { new: true }
     )
 
-    if(!updatedUserCredits) throw new Error("User credits update failed");
+    if (!updatedUserCredits) throw new Error("User credits update failed");
 
     return JSON.parse(JSON.stringify(updatedUserCredits));
   } catch (error) {
